@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terroir Export – Agence d'Accompagnement à l'Export</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1a3355;
+      --gold:   #c49a3c;
+      --cream:  #f9f4ec;
+      --brown:  #7a4b2a;
+      --white:  #ffffff;
+      --text:   #2b2b2b;
+      --light:  #f0ebe1;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 3rem;
+      background: rgba(26,51,85,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(196,154,60,0.3);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      border: none; padding: 0.55rem 1.4rem;
+      border-radius: 4px; font-weight: 600;
+      cursor: pointer; font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #dbb04e; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--navy) 0%, #0f2440 60%, #1e3a5f 100%);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(196,154,60,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(122,75,42,0.15) 0%, transparent 50%);
+    }
+    /* Moroccan geometric pattern overlay */
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z' fill='none' stroke='%23c49a3c' stroke-width='1'/%3E%3Cpath d='M30 10 L50 30 L30 50 L10 30Z' fill='none' stroke='%23c49a3c' stroke-width='0.5'/%3E%3C/svg%3E");
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(196,154,60,0.15);
+      border: 1px solid rgba(196,154,60,0.4);
+      color: var(--gold);
+      font-size: 0.78rem; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem; border-radius: 30px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      line-height: 1.1; color: var(--white);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-title em { color: var(--gold); font-style: normal; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      max-width: 560px; margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.6s ease both;
+    }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 0.85rem 2rem; border-radius: 5px;
+      font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.2s;
+      border: 2px solid var(--gold);
+    }
+    .btn-primary:hover { background: #dbb04e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(196,154,60,0.35); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 0.85rem 2rem; border-radius: 5px;
+      font-weight: 500; font-size: 0.95rem;
+      text-decoration: none; border: 2px solid rgba(255,255,255,0.35);
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--gold);
+      margin-bottom: 0.8rem; font-weight: 600;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      line-height: 1.2; color: var(--navy);
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      color: #555; font-size: 1rem; line-height: 1.75;
+      max-width: 580px;
+    }
+    .divider {
+      width: 50px; height: 3px;
+      background: var(--gold);
+      margin: 1.2rem 0 2rem;
+      border-radius: 2px;
+    }
+
+    /* ─── À PROPOS ─── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-card-main {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 3rem 2.5rem;
+      color: var(--white);
+    }
+    .about-card-main h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .about-card-main p {
+      font-size: 0.95rem; line-height: 1.7;
+      color: rgba(255,255,255,0.8);
+    }
+    .about-stat-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 2rem;
+    }
+    .stat-box {
+      background: rgba(196,154,60,0.12);
+      border: 1px solid rgba(196,154,60,0.25);
+      border-radius: 8px; padding: 1rem;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--gold);
+      font-weight: 800; display: block;
+    }
+    .stat-box .lbl { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--cream); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 2rem;
+      border: 1px solid rgba(196,154,60,0.15);
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(26,51,85,0.1);
+      border-color: var(--gold);
+    }
+    .service-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--navy), #2a4f7c);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.2rem;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .service-card p { font-size: 0.9rem; color: #666; line-height: 1.65; }
+
+    /* ─── PRODUITS ─── */
+    #products { background: var(--navy); }
+    #products .section-title { color: var(--white); }
+    #products .section-desc { color: rgba(255,255,255,0.65); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .product-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(196,154,60,0.2);
+      border-radius: 12px; padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .product-card:hover {
+      background: rgba(196,154,60,0.1);
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+    .product-emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .product-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.05rem; margin-bottom: 0.5rem;
+    }
+    .product-card p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+
+    /* ─── PROCESSUS ─── */
+    #process { background: var(--light); }
+    .steps { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+    .step {
+      display: flex; gap: 2rem; align-items: flex-start;
+      position: relative; padding-bottom: 2.5rem;
+    }
+    .step:not(:last-child)::after {
+      content: '';
+      position: absolute; left: 22px; top: 50px;
+      width: 2px; bottom: 0;
+      background: linear-gradient(to bottom, var(--gold), rgba(196,154,60,0.1));
+    }
+    .step-num {
+      min-width: 44px; height: 44px;
+      background: var(--navy); color: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 800; font-size: 1rem;
+      flex-shrink: 0; z-index: 1;
+    }
+    .step-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    .step-body p { font-size: 0.9rem; color: #666; line-height: 1.65; max-width: 520px; }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--white); }
+    .contact-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--navy); font-size: 1.3rem; margin-bottom: 1rem;
+    }
+    .contact-info p { color: #666; font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.9rem;
+    }
+    .contact-item .ico {
+      width: 36px; height: 36px;
+      background: var(--cream); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-item span { font-size: 0.9rem; color: #555; }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--navy); letter-spacing: 0.04em; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1.5px solid #ddd; border-radius: 6px;
+      padding: 0.7rem 0.9rem; font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream); color: var(--text);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); background: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .btn-submit {
+      background: var(--navy); color: var(--white);
+      border: none; padding: 0.9rem 2rem;
+      border-radius: 6px; font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600; cursor: pointer;
+      transition: all 0.2s; align-self: flex-start;
+    }
+    .btn-submit:hover { background: #254d7a; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,51,85,0.25); }
+    .form-success {
+      display: none; text-align: center;
+      padding: 2rem; background: #f0faf4;
+      border: 1px solid #a8dabb; border-radius: 8px;
+      color: #2e7d52; font-weight: 500;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0d1f35;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(196,154,60,0.2);
+    }
+    footer .logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold); font-size: 1.5rem; margin-bottom: 0.5rem;
+    }
+    footer p { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+    footer .footer-links {
+      display: flex; gap: 2rem; justify-content: center;
+      margin: 1.2rem 0; flex-wrap: wrap;
+    }
+    footer .footer-links a {
+      color: rgba(255,255,255,0.5); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.2s;
+    }
+    footer .footer-links a:hover { color: var(--gold); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.2rem; }
+      .nav-links, .nav-cta { display: none; }
+      .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      section { padding: 4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">Terroir <span>Export</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#products">Produits</a></li>
+      <li><a href="#process">Processus</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+      Demander un devis
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🌍 Agence Clé en Main — Maroc &amp; International</div>
+      <h1 class="hero-title">
+        Exporter le <em>Savoir‑Faire</em><br/>Marocain vers le Monde
+      </h1>
+      <p class="hero-sub">
+        Terroir Export accompagne les coopératives marocaines dans toute la chaîne logistique, douanière et juridique pour accéder aux marchés internationaux.
+      </p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary">Découvrir nos services</a>
+        <a href="#contact" class="btn-secondary">Nous contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p class="section-label">Qui sommes-nous</p>
+          <h2 class="section-title">Une agence dédiée à l'exportation marocaine</h2>
+          <div class="divider"></div>
+          <p class="section-desc">
+            Terroir Export est une agence de service <strong>clé en main</strong> d'accompagnement douanier et juridique pour l'exportation des coopératives marocaines vers l'international. Née d'un projet de Master en <em>Relations Commerciales Internationales</em>, notre mission est de résoudre les freins à l'export pour les petits producteurs.
+          </p>
+          <p class="section-desc" style="margin-top:1rem;">
+            Nous gérons la chaîne logistique complète : choix du mode de transport, sélection des Incoterms adaptés, et sécurisation des contrats de vente.
+          </p>
+        </div>
+        <div class="about-visual reveal">
+          <div class="about-card-main">
+            <h3>Notre mission</h3>
+            <p>Mettre en valeur le lien entre le savoir‑faire local et l'accès aux marchés mondiaux, en apportant expertise, réseau et outils à chaque coopérative partenaire.</p>
+            <div class="about-stat-row">
+              <div class="stat-box">
+                <span class="num">100%</span>
+                <span class="lbl">Accompagnement intégral</span>
+              </div>
+              <div class="stat-box">
+                <span class="num">+30</span>
+                <span class="lbl">Marchés cibles</span>
+              </div>
+              <div class="stat-box">
+                <span class="num">🤝</span>
+                <span class="lbl">Partenariat coopératif</span>
+              </div>
+              <div class="stat-box">
+                <span class="num">🌿</span>
+                <span class="lbl">Produits authentiques</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Ce que nous offrons</p>
+        <h2 class="section-title">Nos Services d'Accompagnement</h2>
+        <div class="divider"></div>
+        <p class="section-desc">De l'analyse du marché à la livraison finale, nous assurons chaque étape de votre projet d'exportation.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon">🛃</div>
+          <h3>Accompagnement Douanier</h3>
+          <p>Gestion complète des formalités douanières, classification tarifaire, documents d'exportation et conformité réglementaire.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">⚖️</div>
+          <h3>Conseil Juridique</h3>
+          <p>Rédaction et sécurisation des contrats de vente internationaux, gestion des litiges et conformité aux normes de chaque marché cible.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">🚢</div>
+          <h3>Logistique & Transport</h3>
+          <p>Sélection du mode de transport optimal (maritime, aérien, terrestre) et choix des Incoterms les plus adaptés à votre situation.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📊</div>
+          <h3>Étude de Marché</h3>
+          <p>Analyse des opportunités d'exportation, identification des marchés porteurs et stratégie d'entrée personnalisée.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">💼</div>
+          <h3>Mise en Relation</h3>
+          <p>Connexion avec importateurs, distributeurs et acheteurs internationaux grâce à notre réseau dans plus de 30 pays.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon">📋</div>
+          <h3>Certification & Qualité</h3>
+          <p>Accompagnement dans l'obtention de certifications (Bio, Fairtrade, Halal) et adaptation aux normes des marchés étrangers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUITS -->
+  <section id="products">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label" style="color:var(--gold)">Savoir-Faire Local</p>
+        <h2 class="section-title">Produits que nous exportons</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Des produits authentiques issus des coopératives marocaines, riches en histoire et en valeur.</p>
+      </div>
+      <div class="products-grid">
+        <div class="product-card reveal">
+          <span class="product-emoji">🫙</span>
+          <h3>Huile d'Argan Bio</h3>
+          <p>L'or liquide du Maroc, certifié biologique, destiné aux marchés cosmétique et alimentaire premium.</p>
+        </div>
+        <div class="product-card reveal">
+          <span class="product-emoji">🧣</span>
+          <h3>Tissus Traditionnels</h3>
+          <p>Textiles artisanaux faits main — djellabas, tapis, broderies berbères pour un marché de niche international.</p>
+        </div>
+        <div class="product-card reveal">
+          <span class="product-emoji">🫒</span>
+          <h3>Huile d'Olive</h3>
+          <p>Huile d'olive extra-vierge de qualité supérieure issue des régions oléicoles marocaines.</p>
+        </div>
+        <div class="product-card reveal">
+          <span class="product-emoji">🌹</span>
+          <h3>Eau de Rose & Épices</h3>
+          <p>Rose de Dades, safran, cumin et ras el hanout — épices et eaux florales à haute valeur ajoutée.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSUS -->
+  <section id="process">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Comment ça marche</p>
+        <h2 class="section-title">Notre Processus en 5 Étapes</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Analyse du dossier</h3>
+            <p>Évaluation de votre coopérative, de vos produits et de vos capacités de production pour définir une stratégie d'export adaptée.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Sélection des marchés cibles</h3>
+            <p>Étude des marchés internationaux les plus porteurs pour vos produits : analyse de la demande, de la concurrence et des réglementations locales.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Formalités douanières & juridiques</h3>
+            <p>Préparation de tous les documents nécessaires, gestion des certifications et sécurisation des contrats de vente.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h3>Logistique & expédition</h3>
+            <p>Organisation du transport, choix des Incoterms, coordination avec les transitaires et suivi en temps réel de la marchandise.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <h3>Suivi & développement</h3>
+            <p>Accompagnement post-export : gestion des paiements internationaux, fidélisation des acheteurs et développement de nouveaux marchés.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:3rem;">
+        <p class="section-label">Travailler avec nous</p>
+        <h2 class="section-title">Démarrez votre projet d'export</h2>
+        <div class="divider"></div>
+        <p class="section-desc">Contactez notre équipe pour une première consultation gratuite et personnalisée.</p>
+      </div>
+      <div class="contact-wrap">
+        <div class="contact-info reveal">
+          <h3>Nos coordonnées</h3>
+          <p>Nous sommes disponibles pour répondre à toutes vos questions sur l'exportation de vos produits marocains vers les marchés internationaux.</p>
+          <div class="contact-item">
+            <div class="ico">📧</div>
+            <span>contact@terroir-export.ma</span>
+          </div>
+          <div class="contact-item">
+            <div class="ico">📞</div>
+            <span>+212 6 00 00 00 00</span>
+          </div>
+          <div class="contact-item">
+            <div class="ico">📍</div>
+            <span>RABAT, Maroc</span>
+          </div>
+          <div class="contact-item">
+            <div class="ico">🌐</div>
+            <span> <a href="https://www.terroir-export.ma" target="_blank">www.terroir-export.ma</a></span>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" placeholder="Ahmed" />
+              </div>
+              <div class="form-group">
+                <label>Nom</label>
+                <input type="text" placeholder="Benali" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="ahmed@cooperative.ma" />
+            </div>
+            <div class="form-group">
+              <label>Type de produit</label>
+              <select>
+                <option value="">-- Sélectionner --</option>
+                <option>Huile d'argan</option>
+                <option>Tissus traditionnels</option>
+                <option>Huile d'olive</option>
+                <option>Épices & aromates</option>
+                <option>Autre produit artisanal</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea placeholder="Décrivez votre projet d'exportation..."></textarea>
+            </div>
+            <button class="btn-submit" onclick="handleSubmit()">Envoyer la demande →</button>
+          </div>
+          <div class="form-success" id="formSuccess">
+            ✅ Merci ! Votre demande a été envoyée. Nous vous répondrons sous 48h.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">Terroir Export</div>
+    <div class="footer-links">
+      <a href="#about">À propos</a>
+      <a href="#services">Services</a>
+      <a href="#products">Produits</a>
+      <a href="#process">Processus</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>© 2026 Terroir Export — Tous droits réservés. Accompagnement à l'exportation des coopératives marocaines.</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form submit
+    function handleSubmit() {
+      const form = document.getElementById('contactForm');
+      const success = document.getElementById('formSuccess');
+      form.style.display = 'none';
+      success.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
